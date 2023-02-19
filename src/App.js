@@ -1,23 +1,48 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 function App() {
+  const [customDate, setCustomDate] = useState({
+    startDate: moment().format('YYYY-MM-DD'),
+    endDate: moment().format('YYYY-MM-DD'),
+  });
+
+  console.log(moment().format('YYYY-DD-MM'))
+
+  useEffect(() => {
+    const { startDate, endDate } = customDate;
+    if(startDate && endDate) {
+      console.log(startDate, endDate)
+    }
+  }, [customDate.startDate, customDate.endDate])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3>Exprimental Date Range</h3>
+      <div>
+        <input 
+          value={customDate.startDate}
+          name='startDate' type="date" 
+          onChange={(e) => {
+            setCustomDate({
+              ...customDate,
+              startDate: e.target.value
+            })
+          }} 
+        />
+        <input 
+          value={customDate.endDate}
+          name='endDate' type="date" 
+          onChange={(e) => {
+            setCustomDate({
+              ...customDate,
+              endDate: e.target.value
+            })
+          }} 
+        />
+      </div>
     </div>
   );
 }
